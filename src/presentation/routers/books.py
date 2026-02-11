@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from typing import Annotated, TypeAlias
-from uuid import UUID
+from uuid import UUID, uuid4
 from presentation.schemas import BookCreate, BookResponse, BookUpdate
 from presentation.dependencies import get_book_service
 from domain.library.entities.book import Book
@@ -11,7 +11,7 @@ BookServiceDep: TypeAlias = Annotated[BookService, Depends(get_book_service)]
 
 @router.post("/", response_model=BookResponse, status_code=status.HTTP_201_CREATED)
 async def create_books( data: BookCreate, service: BookServiceDep):
-    book = Book(data.book_id, data.title, data.author)
+    book = Book(uuid4(), data.title, data.author)
     try:
         creted_book = service.create_book(book)
         return await creted_book
@@ -26,7 +26,7 @@ async def get_all_books(service: BookServiceDep):
 
 
 @router.get("/{book_id}", response_model=BookResponse, status_code=status.HTTP_200_OK)
-async def get_book_by_id(book_id: int, service: BookServiceDep):
+async def get_book_by_id(book_id: UUID, service: BookServiceDep):
     try: 
         return await service.get_book_by_id(book_id)
     except Exception as e:
@@ -34,7 +34,7 @@ async def get_book_by_id(book_id: int, service: BookServiceDep):
 
 
 @router.put("/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def update_book( book_id: int, data: BookUpdate, serivce: BookServiceDep):
+async def update_book( book_id: UUID, data: BookUpdate, serivce: BookServiceDep):
     try:
         return await serivce.update_book(book_id, data)
     except Exception as e:
@@ -42,7 +42,7 @@ async def update_book( book_id: int, data: BookUpdate, serivce: BookServiceDep):
 
 
 @router.delete("/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def delete_book(book_id: int, service: BookServiceDep):
+async def delete_book(book_id: UUID, service: BookServiceDep):
     try:
         await service.delete_book(book_id)
     except Exception as e:
@@ -50,7 +50,7 @@ async def delete_book(book_id: int, service: BookServiceDep):
 
 
 @router.post("/{book_id}/borrow/member/{member_id}", status_code=status.HTTP_204_NO_CONTENT)
-async def borrow_book(book_id:int, member_id: UUID, service: BookServiceDep):
+async def borrow_book(book_id:UUID, member_id: UUID, service: BookServiceDep):
     try:
         await service.borrow_book(book_id,member_id)
     except Exception as e:
@@ -58,7 +58,7 @@ async def borrow_book(book_id:int, member_id: UUID, service: BookServiceDep):
     
 
 @router.post("/{book_id}/return", status_code=status.HTTP_204_NO_CONTENT)
-async def return_book(book_id: int, service: BookServiceDep):
+async def return_book(book_id: UUID, service: BookServiceDep):
     try:
         await service.return_book(book_id)
     except Exception as e:

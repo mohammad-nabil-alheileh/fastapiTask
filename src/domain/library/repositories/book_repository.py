@@ -1,11 +1,12 @@
 from abc import ABC, abstractmethod
 from typing import List, Optional
 from domain.library.entities.book import Book
+from uuid import UUID
 
 class BookRepository(ABC):
 
     @abstractmethod
-    def get_by_id(self, book_id: int) ->Optional[Book]:
+    def get_by_id(self, book_id: UUID) ->Optional[Book]:
         pass
 
     @abstractmethod
@@ -21,6 +22,6 @@ class BookRepository(ABC):
         pass
 
     @abstractmethod
-    def delete(self, book_id: int) -> None:
+    def delete(self, book_id: UUID) -> None:
         pass
 

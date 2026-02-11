@@ -16,13 +16,12 @@ class MemberResponse(BaseModel):
 
 
 class BookCreate(BaseModel):
-    book_id: int
     title: str
     author: str
 
 
 class BookResponse(BaseModel):
-    book_id: int
+    book_id: UUID
     title: str
     author: str
     is_borrowed: bool

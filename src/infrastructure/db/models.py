@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, ForeignKey
+from sqlalchemy import Column, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.dialects.postgresql import UUID
 from infrastructure.db.connection import Base
 import uuid
@@ -6,7 +6,7 @@ import uuid
 class BookModel(Base):
     __tablename__ = "books"
 
-    book_id = Column(Integer, primary_key=True)
+    book_id = Column(UUID, primary_key=True)
     title = Column(String, nullable=False)
     author = Column(String, nullable=False)
 

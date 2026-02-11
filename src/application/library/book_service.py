@@ -1,3 +1,5 @@
+from uuid import UUID
+
 class BookService:
     def __init__(self, book_repo, member_repo):
         self.book_repo = book_repo
@@ -11,7 +13,7 @@ class BookService:
         await self.book_repo.create(book)
         return book
 
-    async def borrow_book(self, book_id: int, member_id):
+    async def borrow_book(self, book_id: UUID, member_id):
         book = await self.book_repo.get_by_id(book_id)
         if not book:
             raise Exception("Book not found")
@@ -24,14 +26,14 @@ class BookService:
         await self.book_repo.update_state(book)
         return book
 
-    async def get_book_by_id(self, book_id: int):
+    async def get_book_by_id(self, book_id: UUID):
         book = await self.book_repo.get_by_id(book_id)
         if not book:
             raise Exception("Book not found")
 
         return book
 
-    async def return_book(self, book_id: int):
+    async def return_book(self, book_id: UUID):
         book = await self.book_repo.get_by_id(book_id)
         if not book:
             raise Exception("Book not found")

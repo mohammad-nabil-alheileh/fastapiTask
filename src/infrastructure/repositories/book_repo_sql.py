@@ -3,11 +3,12 @@ from domain.library.entities.book import Book
 from infrastructure.db.session import db_async_session
 from infrastructure.db.models import BookModel
 from sqlalchemy import select
+from uuid import UUID
 
 
 class BookRepositorySQL(BookRepository):
 
-    async def get_by_id(self, book_id: int):
+    async def get_by_id(self, book_id: UUID):
         async with db_async_session() as db:
             result = await db.execute(
                 select(BookModel).where(BookModel.book_id == book_id)
@@ -85,7 +86,7 @@ class BookRepositorySQL(BookRepository):
             row.borrowed_date = book.borrowed_date
             row.is_borrowed = book.borrowed_by is not None
 
-    async def delete(self, book_id: int):
+    async def delete(self, book_id: UUID):
         async with db_async_session() as db:
             result = await db.execute(
                 select(BookModel).where(BookModel.book_id == book_id)
