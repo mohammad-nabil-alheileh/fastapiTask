@@ -57,7 +57,6 @@ class BookRepositorySQL(BookRepository):
                     is_borrowed=False,
                 )
             )
-            # commit handled by db_async_session
 
     async def update(self, book: Book):
         async with db_async_session() as db:

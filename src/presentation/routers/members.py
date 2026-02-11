@@ -14,8 +14,8 @@ MemberServiceDep: TypeAlias = Annotated[MemberService, Depends(get_member_servic
 async def create_member( data: MemberCreate, service: MemberServiceDep):
     member = Member(uuid4(), data.name, data.email)
     try:
-        service.create_member(member)
-        return member
+        member_created = await service.create_member(member)
+        return member_created
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
     

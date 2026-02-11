@@ -3,7 +3,6 @@ from sqlalchemy.dialects.postgresql import UUID
 from infrastructure.db.connection import Base
 import uuid
 
-
 class BookModel(Base):
     __tablename__ = "books"
 
@@ -12,7 +11,7 @@ class BookModel(Base):
     author = Column(String, nullable=False)
 
     borrowed_by = Column(UUID(as_uuid=True), ForeignKey("members.member_id"), nullable=True)
-    borrowed_date = Column(DateTime, nullable=True)
+    borrowed_date = Column(DateTime(timezone = True), nullable=True)
     is_borrowed = Column(Boolean, nullable=False, default=False)
 
 

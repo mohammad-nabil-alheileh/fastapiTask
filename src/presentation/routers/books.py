@@ -44,7 +44,7 @@ async def update_book( book_id: int, data: BookUpdate, serivce: BookServiceDep):
 @router.delete("/{book_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_book(book_id: int, service: BookServiceDep):
     try:
-        service.delete_book(book_id)
+        await service.delete_book(book_id)
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
 
@@ -52,7 +52,7 @@ async def delete_book(book_id: int, service: BookServiceDep):
 @router.post("/{book_id}/borrow/member/{member_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def borrow_book(book_id:int, member_id: UUID, service: BookServiceDep):
     try:
-        service.borrow_book(book_id,member_id)
+        await service.borrow_book(book_id,member_id)
     except Exception as e:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(e))
     
@@ -60,6 +60,6 @@ async def borrow_book(book_id:int, member_id: UUID, service: BookServiceDep):
 @router.post("/{book_id}/return", status_code=status.HTTP_204_NO_CONTENT)
 async def return_book(book_id: int, service: BookServiceDep):
     try:
-        service.return_book(book_id)
+        await service.return_book(book_id)
     except Exception as e:
         raise HTTPException(status_code = status.HTTP_404_NOT_FOUND, detail = str(e))
