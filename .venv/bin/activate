@@ -56,13 +56,13 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-if [ ! -d /home/moahammad-nabil/Desktop/python/fast_task/library_app/.venv ]; then
-    echo "Virtual environment directory /home/moahammad-nabil/Desktop/python/fast_task/library_app/.venv does not exist!" >&2
+if [ ! -d /app/.venv ]; then
+    echo "Virtual environment directory /app/.venv does not exist!" >&2
     CURRENT_PATH=$(realpath "${0}")
     CURRENT_DIR=$(dirname "${CURRENT_PATH}")
     VIRTUAL_ENV="$(realpath "${CURRENT_DIR}/../")"
 else
-    VIRTUAL_ENV=/home/moahammad-nabil/Desktop/python/fast_task/library_app/.venv
+    VIRTUAL_ENV=/app/.venv
 fi
 
 if ([ "$OSTYPE" = "cygwin" ] || [ "$OSTYPE" = "msys" ]) && $(command -v cygpath &> /dev/null) ; then

@@ -47,7 +47,7 @@ export-env {
         }
     }
 
-    let virtual_env = r#'/home/moahammad-nabil/Desktop/python/fast_task/library_app/.venv'#
+    let virtual_env = r#'/app/.venv'#
     let bin = r#'bin'#
     let path_name = if (has-env 'Path') { 'Path' } else { 'PATH' }
     let venv_path = ([$virtual_env $bin] | path join)

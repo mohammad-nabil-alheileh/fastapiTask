@@ -1,4 +1,4 @@
-#!/home/moahammad-nabil/Desktop/python/fast_task/library_app/.venv/bin/python
+#!/app/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
