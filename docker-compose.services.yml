@@ -1,0 +1,30 @@
+services:
+
+  books_service:
+    build: ./books_service
+    container_name: books_service
+    env_file:
+      - ./books_service/.env
+    ports:
+      - "8001:8000"
+    restart: unless-stopped
+    networks:
+      - library_network
+
+
+  members_service:
+    build: ./members_service
+    container_name: members_service
+    env_file:
+      - ./members_service/.env
+    ports:
+      - "8002:8000"
+    restart: unless-stopped
+    networks:
+      - library_network
+
+
+networks:
+  library_network:
+    external: true
+    name: library_network
